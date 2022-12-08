@@ -6,7 +6,7 @@ import com.game.Main;
 import com.game.PhysicsEngine.Object.Entity;
 import com.game.PhysicsEngine.PhysicsCalculations.Maths.Vector2D;
 import com.game.PhysicsEngine.PhysicsCalculations.Maths.VectorMath;
-import com.game.PhysicsEngine.RigidBody2D.RigidBody2D;
+import com.game.PhysicsEngine.RigidBody2D.RigidPolygon2D;
 
 public class Physics2D {
 
@@ -28,9 +28,9 @@ public class Physics2D {
         }
     }
 
-    public static void resolveCollision(CollisionManifold collision) {
-        RigidBody2D rbA = collision.getBodyA();
-        RigidBody2D rbB = collision.getBodyB();
+    public static void resolveCollision(CollisionManifold collision) { // Resolve collision between two Polygon2D
+        RigidPolygon2D rbA = (RigidPolygon2D) collision.getBodyA();
+        RigidPolygon2D rbB = (RigidPolygon2D) collision.getBodyB();
         Vector2D normal = collision.getNormal();
         double depth = collision.getDepth();
 
@@ -61,12 +61,15 @@ public class Physics2D {
         positionCorrection(rbA, rbB, depth, normal);
     }
 
-    public static void positionCorrection(RigidBody2D rbA, RigidBody2D rbB, double depth, Vector2D normal) {
+    public static void positionCorrection(RigidPolygon2D rbA, RigidPolygon2D rbB, double depth, Vector2D normal) { // Don't know if I need to adjust it between two Polygon2D or two Circle2D or one of each but probably.
         double percent = 0.9; // usually 20% to 80%
         double slop = 0.02; // usually 0.01 to 0.1
         Vector2D correction = new Vector2D(normal.multiplyVector2DConst(percent * Math.max(depth - slop, 0) / (rbA.getInvMass() + rbB.getInvMass())));
-        rbA.getPosition().subtractVect(correction.multiplyVector2DConst(rbA.getInvMass()));
-        rbB.getPosition().addVect(correction.multiplyVector2DConst(rbB.getInvMass()));
+
+        rbA.moveRigidPolygon2D(rbA.getPolygon2D().getCentroid().subtractVector2DVect(correction.multiplyVector2DConst(rbA.getInvMass())));
+        rbB.moveRigidPolygon2D(rbB.getPolygon2D().getCentroid().addVector2DVect(correction.multiplyVector2DConst(rbB.getInvMass())));
+        //rbA.getPosition().subtractVect(correction.multiplyVector2DConst(rbA.getInvMass()));
+        //rbB.getPosition().addVect(correction.multiplyVector2DConst(rbB.getInvMass()));
     }
 
     public static void playerMovement() {

@@ -6,7 +6,7 @@ import com.game.PhysicsEngine.PhysicsCalculations.Maths.VectorMath;
 
 import javafx.beans.property.DoublePropertyBase;
 
-public abstract class Polygon2D {
+public class Polygon2D {
     private Vector2D[] vertices;
     private Vector2D centroid;
     private DoublePropertyBase angle;

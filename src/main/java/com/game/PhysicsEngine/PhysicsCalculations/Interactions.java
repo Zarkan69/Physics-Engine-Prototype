@@ -111,7 +111,7 @@ public class Interactions {
         }
     }
 
-    private static boolean Intersects(Entity a, Entity b) {
+    private static boolean Intersects(Entity a, Entity b) { // between two polygons
         normal = new Vector2D(0, 0);
         depth = Double.MAX_VALUE;
 
@@ -167,7 +167,8 @@ public class Interactions {
             }
         }
 
-        Vector2D direction = new Vector2D(b.getRigidBody().getPosition().subtractVector2DVect(a.getRigidBody().getPosition()));
+        Vector2D direction = new Vector2D(((RigidPolygon2D)b.getRigidBody()).getPolygon2D().getCentroid().subtractVector2DVect(
+            ((RigidPolygon2D)a.getRigidBody()).getPolygon2D().getCentroid()));
 
         if (VectorMath.dotProduct(direction, normal) < 0) {
             normal.inverse();

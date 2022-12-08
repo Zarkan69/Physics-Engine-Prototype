@@ -49,7 +49,7 @@ public class Main extends Application {
         test.getPoints().addAll(new Double[] { 50.0, 50.0, 100.0, 50.0, 10.0, 10.0, 50.0, 10.0 });
 
         RigidPolygon2D rp = (RigidPolygon2D) eC.getRigidBody(); 
-        eC.getRigidBody().setPosition(new Vector2D(600, 700), rp.getPolygon2D());
+        //eC.getRigidBody().setPosition(new Vector2D(600, 700), rp.getPolygon2D());
         //eA.getRigidBody().rotateBox2D(35);
 
         Physics2D.entities.add(eC); // rouge
@@ -159,11 +159,11 @@ public class Main extends Application {
                 SpriteObject eSprite = new SpriteObject(e);
                 Physics2D.entities.add(e);
                 RigidPolygon2D rp = (RigidPolygon2D) e.getRigidBody();
-                e.getRigidBody().setPosition(mouse, rp.getPolygon2D());
+                //e.getRigidBody().setPosition(mouse, rp.getPolygon2D());
                 root.getChildren().add(eSprite.getPolygonSprite());
                 eSprite.getPolygonSprite().setFill(Color.rgb((int) (Math.random() * 255) + 1, (int) (Math.random() * 255) + 1,
                         (int) (Math.random() * 255) + 1));
-                e.getRigidBody().setPosition(mouse, rp.getPolygon2D());
+                //e.getRigidBody().setPosition(mouse, rp.getPolygon2D());
                 //e.getRigidBody().rotateBox2D(Math.random() * 360);
                 double forceMagnitude = 0.5;
                 Vector2D forceDirection = new Vector2D(0, 3);

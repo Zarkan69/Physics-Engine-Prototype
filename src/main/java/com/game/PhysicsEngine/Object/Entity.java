@@ -9,7 +9,6 @@ import com.game.PhysicsEngine.RigidBody2D.RigidPolygon2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Shape;
 
 public class Entity {
     private Polygon polygonSprite;
